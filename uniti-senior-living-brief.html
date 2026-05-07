@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uniti AI × Senior Living | Research Brief</title>
+  <style>
+    :root {
+      --bg: #f5f6f8;
+      --surface: #ffffff;
+      --surface2: #f0f2f5;
+      --border: #e2e6ed;
+      --accent: #0e1f3d;
+      --accent2: #1a6b8a;
+      --green: #0a9e6e;
+      --amber: #c97d10;
+      --red: #d94f4f;
+      --text: #0e1f3d;
+      --muted: #5f6b80;
+      --tag-bg: #e8f0fb;
+      --teal: #2db8c5;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 28px 40px 0;
+      box-shadow: 0 1px 4px rgba(14,31,61,0.06);
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 6px;
+    }
+    .logo-badge {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+    }
+    .header-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .header-sub {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 22px;
+    }
+
+    /* ── Tabs ── */
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: none;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 10px 22px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--muted);
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--accent); }
+    .tab-btn.active {
+      color: var(--teal);
+      border-bottom-color: var(--teal);
+    }
+
+    /* ── Content ── */
+    .content {
+      padding: 36px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Section titles ── */
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .section-sub {
+      color: var(--muted);
+      font-size: 13.5px;
+      margin-bottom: 28px;
+    }
+
+    /* ── Stat cards ── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 1px 4px rgba(14,31,61,0.05);
+    }
+    .stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--teal);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ── Two-column layout ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+    @media (max-width: 720px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 4px rgba(14,31,61,0.05);
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--muted);
+    }
+
+    /* ── Pain point list ── */
+    .pain-list { list-style: none; }
+    .pain-list li {
+      display: flex;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .pain-list li:last-child { border-bottom: none; }
+    .pain-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── AI opportunity rows ── */
+    .opp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 680px) { .opp-grid { grid-template-columns: 1fr; } }
+    .opp-card {
+      background: #f7f9fc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .opp-card-head {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 7px;
+    }
+    .opp-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--teal);
+      flex-shrink: 0;
+    }
+    .opp-dot.green { background: var(--green); }
+    .opp-dot.amber { background: var(--amber); }
+    .opp-dot.purple { background: var(--accent2); }
+    .opp-title { font-size: 13.5px; font-weight: 600; }
+    .opp-desc { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+
+    /* ── Journey timeline ── */
+    .journey {
+      display: flex;
+      gap: 0;
+      margin-bottom: 28px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .journey-step {
+      flex: 1;
+      min-width: 140px;
+      position: relative;
+    }
+    .journey-step::after {
+      content: '';
+      position: absolute;
+      top: 18px;
+      right: -1px;
+      width: 100%;
+      height: 2px;
+      background: var(--border);
+      z-index: 0;
+    }
+    .journey-step:last-child::after { display: none; }
+    .journey-dot {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(14,31,61,0.08);
+    }
+    .journey-phase { font-size: 12px; font-weight: 700; color: var(--teal); margin-bottom: 4px; }
+    .journey-desc { font-size: 11.5px; color: var(--muted); line-height: 1.4; }
+    .journey-uniti { font-size: 11px; color: var(--green); margin-top: 5px; font-weight: 600; }
+
+    /* ── Stakeholder chips ── */
+    .stakeholder-section { margin-bottom: 24px; }
+    .stakeholder-label { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      background: #f0f2f5;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 5px 13px;
+      font-size: 12.5px;
+      color: var(--text);
+    }
+    .chip.decision { border-color: var(--teal); color: var(--teal); background: rgba(45,184,197,0.08); }
+    .chip.user { border-color: var(--green); color: var(--green); background: rgba(10,158,110,0.08); }
+    .chip.influence { border-color: var(--amber); color: var(--amber); background: rgba(201,125,16,0.08); }
+
+    /* ── Competitor table ── */
+    .comp-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 28px; }
+    .comp-table th {
+      background: #f0f2f5;
+      padding: 11px 14px;
+      text-align: left;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+    .comp-table td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.5;
+      background: #fff;
+    }
+    .comp-table tr:last-child td { border-bottom: none; }
+    .comp-table tr.highlight td { background: rgba(45,184,197,0.05); }
+    .comp-name { font-weight: 700; color: var(--text); }
+    .comp-name.is-uniti { color: var(--teal); }
+    .badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-green { background: rgba(10,158,110,0.12); color: var(--green); }
+    .badge-amber { background: rgba(201,125,16,0.12); color: var(--amber); }
+    .badge-blue  { background: rgba(45,184,197,0.15); color: var(--teal); }
+    .badge-gray  { background: rgba(95,107,128,0.12); color: var(--muted); }
+
+    /* ── LinkedIn mock ── */
+    .linkedin-wrapper {
+      max-width: 560px;
+      margin: 0 auto 32px;
+    }
+    .li-card {
+      background: #fff;
+      color: #1a1a1a;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    .li-header {
+      padding: 16px 16px 0;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .li-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4f8ef7, #7c6ff7);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 18px;
+      flex-shrink: 0;
+    }
+    .li-name { font-weight: 700; font-size: 14.5px; color: #1a1a1a; line-height: 1.2; }
+    .li-title { font-size: 12.5px; color: #666; line-height: 1.4; }
+    .li-time { font-size: 12px; color: #999; }
+    .li-body {
+      padding: 14px 16px;
+      font-size: 14px;
+      color: #1a1a1a;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+    .li-image {
+      background: linear-gradient(135deg, #0e1f3d 0%, #1a3a5c 60%, #0f2845 100%);
+      padding: 28px 24px;
+      color: #fff;
+    }
+    .li-img-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-bottom: 8px; text-transform: uppercase; }
+    .li-img-stat { font-size: 38px; font-weight: 800; color: #4f8ef7; line-height: 1; margin-bottom: 4px; }
+    .li-img-desc { font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 20px; }
+    .li-img-quote {
+      background: rgba(255,255,255,0.07);
+      border-left: 3px solid #4f8ef7;
+      padding: 12px 16px;
+      font-size: 13px;
+      font-style: italic;
+      color: rgba(255,255,255,0.85);
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 16px;
+    }
+    .li-img-footer { font-size: 12px; color: rgba(255,255,255,0.45); }
+    .li-footer {
+      padding: 10px 16px 14px;
+      display: flex;
+      gap: 18px;
+    }
+    .li-action {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 13px; color: #666;
+      cursor: pointer;
+    }
+    .li-action:hover { color: #0a66c2; }
+
+    /* ── Case study card ── */
+    .case-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .case-header {
+      background: linear-gradient(135deg, #0e1f3d, #1a3a5c);
+      padding: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .case-tag {
+      display: inline-block;
+      background: rgba(45,184,197,0.25);
+      color: #6de8f0;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .case-headline { font-size: 20px; font-weight: 800; line-height: 1.3; margin-bottom: 8px; color: #fff; }
+    .case-sub { font-size: 13.5px; color: rgba(255,255,255,0.6); }
+    .case-body { padding: 24px; }
+    .case-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .case-metric {
+      background: #f7f9fc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      text-align: center;
+    }
+    .case-metric-val { font-size: 26px; font-weight: 800; color: var(--teal); margin-bottom: 3px; }
+    .case-metric-label { font-size: 11.5px; color: var(--muted); line-height: 1.3; }
+    .case-text { font-size: 13.5px; color: var(--muted); line-height: 1.7; margin-bottom: 14px; }
+    .case-quote {
+      background: rgba(45,184,197,0.06);
+      border-left: 3px solid var(--teal);
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      border-radius: 0 8px 8px 0;
+    }
+    .case-quote-text { font-size: 14px; font-style: italic; line-height: 1.6; margin-bottom: 6px; }
+    .case-quote-attr { font-size: 12px; color: var(--muted); font-weight: 600; }
+
+    /* ── Divider ── */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+    /* ── Tag pill ── */
+    .tag-pill {
+      display: inline-block;
+      background: rgba(45,184,197,0.1);
+      color: var(--teal);
+      border: 1px solid rgba(45,184,197,0.3);
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    /* ── Highlight box ── */
+    .highlight-box {
+      background: rgba(45,184,197,0.06);
+      border: 1px solid rgba(45,184,197,0.25);
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+    }
+    .highlight-box.green {
+      background: rgba(10,158,110,0.05);
+      border-color: rgba(10,158,110,0.2);
+    }
+    .highlight-box .hl-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--teal);
+      margin-bottom: 6px;
+    }
+    .highlight-box.green .hl-title { color: var(--green); }
+    .highlight-box .hl-body { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+
+    /* ── Stakeholder cards ── */
+    .scard {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 1px 4px rgba(14,31,61,0.05);
+    }
+    .scard-primary {
+      border-color: rgba(45,184,197,0.4);
+      background: rgba(45,184,197,0.03);
+    }
+    .scard-header {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .scard-icon {
+      font-size: 26px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .scard-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.2;
+      margin-bottom: 3px;
+    }
+    .scard-role {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.7px;
+      color: var(--teal);
+      text-transform: uppercase;
+    }
+    .scard-primary .scard-role { color: var(--teal); }
+    .scard-body {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .scard-needs {
+      background: #f7f9fc;
+      border-radius: 8px;
+      padding: 11px 13px;
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 12px;
+      border: 1px solid var(--border);
+    }
+    .scard-need-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    /* Stat row inside scard */
+    .scard-stat-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .scard-stat {
+      flex: 1;
+      background: #f7f9fc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      text-align: center;
+    }
+    .scard-stat-val {
+      display: block;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--teal);
+      line-height: 1.1;
+      margin-bottom: 2px;
+    }
+    .scard-stat-lbl {
+      display: block;
+      font-size: 10.5px;
+      color: var(--muted);
+      line-height: 1.3;
+    }
+    /* Profile label */
+    .scard-profile-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.7px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    /* Challenge block */
+    .scard-challenge {
+      background: rgba(201,125,16,0.06);
+      border-left: 3px solid var(--amber);
+      border-radius: 0 6px 6px 0;
+      padding: 9px 12px;
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .scard-challenge-label {
+      display: block;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .scard-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .scard-bullets li {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.5;
+      padding: 3px 0 3px 16px;
+      position: relative;
+    }
+    .scard-bullets li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-weight: 700;
+      font-size: 11px;
+      top: 4px;
+    }
+    .scard-channels { display: flex; flex-wrap: wrap; gap: 6px; }
+    .sch {
+      background: rgba(45,184,197,0.1);
+      color: var(--teal);
+      border: 1px solid rgba(45,184,197,0.25);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 9px;
+      border-radius: 10px;
+    }
+
+    /* ── Decision stage ── */
+    .dstage {
+      display: flex;
+      gap: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .dstage-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 52px;
+      flex-shrink: 0;
+    }
+    .dstage-num {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid var(--teal);
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      z-index: 1;
+      box-shadow: 0 1px 4px rgba(14,31,61,0.08);
+    }
+    .dstage-line {
+      width: 2px;
+      flex: 1;
+      background: var(--border);
+      min-height: 24px;
+      margin: 4px 0;
+    }
+    .dstage-right {
+      padding: 0 0 28px 20px;
+      flex: 1;
+    }
+    .dstage-head {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .dstage-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .dstage-who {
+      font-size: 11.5px;
+      color: var(--muted);
+      background: #f0f2f5;
+      padding: 2px 10px;
+      border-radius: 10px;
+    }
+    .dstage-body {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 10px;
+    }
+    .dstage-consideration {
+      font-size: 13px;
+      color: var(--amber);
+      background: rgba(201,125,16,0.06);
+      border-left: 3px solid var(--amber);
+      padding: 8px 13px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .dstage-uniti {
+      font-size: 13px;
+      color: var(--teal);
+      background: rgba(45,184,197,0.06);
+      border-left: 3px solid var(--teal);
+      padding: 8px 13px;
+      border-radius: 0 6px 6px 0;
+      line-height: 1.5;
+    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f0f2f5; }
+    ::-webkit-scrollbar-thumb { background: #c8d0db; border-radius: 3px; }
+
+    /* pain list text color fix for light mode */
+    .pain-list li { color: var(--text); }
+    .section-title { color: var(--accent); }
+    .journey-step::after { background: #d0d8e4; }
+    .journey-desc { color: var(--muted); }
+    .opp-desc { color: var(--muted); }
+    .case-text { color: var(--muted); }
+    .case-quote-text { color: var(--text); }
+    .case-quote-attr { color: var(--muted); }
+    .hl-body { color: var(--muted); }
+    .stat-label { color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <span class="logo-badge">UNITI AI</span>
+    <span class="header-title">Senior Living — Strategic Brief</span>
+  </div>
+  <p class="header-sub">Research prepared for Growth Marketing Manager interview · May 2026</p>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('landscape', this)">01 · Market Landscape</button>
+    <button class="tab-btn" onclick="switchTab('uniti', this)">02 · Uniti in Senior Living</button>
+    <button class="tab-btn" onclick="switchTab('competition', this)">03 · Decision Process</button>
+    <button class="tab-btn" onclick="switchTab('assets', this)">04 · Sample Marketing Assets</button>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- ═══════════════════════════════ TAB 1: LANDSCAPE ═══════════════════════════════ -->
+  <div class="tab-panel active" id="tab-landscape">
+    <p class="section-title">Senior Living: The Landscape & Where AI Wins</p>
+    <p class="section-sub">A market under structural pressure — aging demographics, staffing crises, and a slow-to-modernize industry create the perfect conditions for AI-driven growth.</p>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-value">30,000+</div>
+        <div class="stat-label">Senior living communities in the US</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">$387B</div>
+        <div class="stat-label">AI in elderly care market by 2035 (21% CAGR)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">25</div>
+        <div class="stat-label">Average touchpoints needed to convert a prospect</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">50%+</div>
+        <div class="stat-label">Annual staff turnover in senior living communities</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">2 yrs</div>
+        <div class="stat-label">Average time families research before a move-in decision</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">40%</div>
+        <div class="stat-label">Of prospects decide within 3–6 months of a triggering event</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">🔴 Structural Pain Points</div>
+        <ul class="pain-list">
+          <li><span class="pain-icon">📞</span><div><strong>Missed inquiries.</strong> Families call at night, on weekends — understaffed teams miss calls. A missed inquiry often means a missed move-in worth $50K+/year.</div></li>
+          <li><span class="pain-icon">🐢</span><div><strong>Slow lead response.</strong> Industry average response time is 4–24 hours. Studies show response within 5 minutes increases conversion by 9×.</div></li>
+          <li><span class="pain-icon">👥</span><div><strong>Staff turnover.</strong> Sales counselors leave, taking relationship context with them. Leads go cold. There's no institutional memory.</div></li>
+          <li><span class="pain-icon">📋</span><div><strong>Manual workflows.</strong> Tour scheduling, follow-up emails, maintenance requests, FAQ responses — all still done by hand at most communities.</div></li>
+          <li><span class="pain-icon">💔</span><div><strong>Long, emotional journey.</strong> Families research for 2+ years across dozens of touchpoints. Staying present throughout that journey is nearly impossible without automation.</div></li>
+          <li><span class="pain-icon">💰</span><div><strong>Over-reliance on aggregators.</strong> Many operators pay A Place for Mom, Caring.com, etc. — high CPL, low quality. Owned channels are underdeveloped.</div></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🟢 Growth Tailwinds</div>
+        <ul class="pain-list">
+          <li><span class="pain-icon">📈</span><div><strong>Baby Boomer demand surge.</strong> Peak Boomer aging hits 2025–2035. Demand for assisted living and memory care is accelerating rapidly.</div></li>
+          <li><span class="pain-icon">🏠</span><div><strong>Independent living recovery.</strong> Post-pandemic occupancy is rebounding — independent living saw double-digit inquiry growth in 2025.</div></li>
+          <li><span class="pain-icon">🔍</span><div><strong>AI reshaping search.</strong> Aggregator dominance is cracking. Web form submissions to community websites are rising as AI search surfaces direct listings.</div></li>
+          <li><span class="pain-icon">🌐</span><div><strong>Tech openness rising.</strong> 70% of senior living orgs now use AI for predictive analytics. Operators are finally receptive to software.</div></li>
+          <li><span class="pain-icon">🏗️</span><div><strong>Capital reopening.</strong> After tight years, construction and acquisition activity in senior living is picking back up in 2026.</div></li>
+          <li><span class="pain-icon">🤝</span><div><strong>Family-driven digital channels.</strong> Adult children — the real buyers — live online. SMS, email, and chat are their native channels.</div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🤖 Where AI Can Step In — Meaningfully</div>
+      <div class="opp-grid">
+        <div class="opp-card">
+          <div class="opp-card-head"><div class="opp-dot"></div><div class="opp-title">Instant Lead Engagement</div></div>
+          <div class="opp-desc">Respond to every inquiry in under 90 seconds — at 2am, on Sunday, during a holiday. Families searching in a crisis don't wait. First responder wins.</div>
+        </div>
+        <div class="opp-card">
+          <div class="opp-card-head"><div class="opp-dot green"></div><div class="opp-title">Nurture Over the Long Journey</div></div>
+          <div class="opp-desc">Automated, personalized follow-up over weeks and months — so when the family is finally ready to decide, Uniti's client is top of mind.</div>
+        </div>
+        <div class="opp-card">
+          <div class="opp-card-head"><div class="opp-dot amber"></div><div class="opp-title">Win-Back Campaigns</div></div>
+          <div class="opp-desc">Re-engage families who went quiet 3, 6, 12 months ago. Life circumstances change. The agent can restart conversations with empathy and new info.</div>
+        </div>
+        <div class="opp-card">
+          <div class="opp-card-head"><div class="opp-dot purple"></div><div class="opp-title">Resident & Staff Support</div></div>
+          <div class="opp-desc">Maintenance requests, balance checks, FAQs, gate access — resolved instantly without pulling a care staff member away from a resident.</div>
+        </div>
+        <div class="opp-card">
+          <div class="opp-card-head"><div class="opp-dot"></div><div class="opp-title">Tour Scheduling Automation</div></div>
+          <div class="opp-desc">Qualify prospects and book tours automatically — synced to counselor calendars, no back-and-forth email chains.</div>
+        </div>
+        <div class="opp-card">
+          <div class="opp-card-head"><div class="opp-dot green"></div><div class="opp-title">Omnichannel Presence</div></div>
+          <div class="opp-desc">Phone, SMS, email, WhatsApp, and chat — families communicate across all of these. One agent, all channels, consistent voice.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ TAB 2: UNITI ═══════════════════════════════ -->
+  <div class="tab-panel" id="tab-uniti">
+    <p class="section-title">Uniti AI's Play in Senior Living</p>
+    <p class="section-sub">What they've built, who buys it, how decisions get made, and where Uniti creates value throughout the journey.</p>
+
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">✅ What Uniti Has Built</div>
+        <ul class="pain-list">
+          <li><span class="pain-icon">🤖</span><div><strong>AI Sales Agent.</strong> Engages inquiries instantly via SMS and email — answers questions, shares availability, sends reminders. No lead slips through.</div></li>
+          <li><span class="pain-icon">📞</span><div><strong>Voice + Omnichannel.</strong> Answers across phone, SMS, email, and chat — 24/7, with no hold music.</div></li>
+          <li><span class="pain-icon">🔁</span><div><strong>Win-Back Engine.</strong> Personalised outreach to families who went cold weeks or months ago — timed re-engagement campaigns.</div></li>
+          <li><span class="pain-icon">🎫</span><div><strong>Support & Escalation.</strong> Resolves maintenance, FAQs, balance checks automatically. Complex cases warm-transferred to staff with full context.</div></li>
+          <li><span class="pain-icon">🔗</span><div><strong>CRM & PMS Integration.</strong> Plugs into existing systems — no rip-and-replace required.</div></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">🚀 Where Uniti Is Headed</div>
+        <ul class="pain-list">
+          <li><span class="pain-icon">🗣️</span><div><strong>Voice agents.</strong> Full voice AI capability on the roadmap — answer inbound calls, handle triage, schedule tours by phone.</div></li>
+          <li><span class="pain-icon">🌍</span><div><strong>International expansion.</strong> European and Asia-Pacific markets targeted by end of 2025/2026 — senior living is a global challenge.</div></li>
+          <li><span class="pain-icon">📊</span><div><strong>Agentic back-office.</strong> Expanding from front-office sales into full workflow automation — collections, reporting, compliance tasks.</div></li>
+          <li><span class="pain-icon">🏢</span><div><strong>More verticals.</strong> Senior living joins self-storage, MH, coworking on one horizontal platform — operators with mixed portfolios get one solution.</div></li>
+          <li><span class="pain-icon">🤝</span><div><strong>Deeper partnerships.</strong> Following the OpenTech model — building integrations with senior living PMS platforms to expand distribution.</div></li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <p class="section-title" style="font-size:16px; margin-bottom: 16px;">Who's in the Room? Stakeholder Map</p>
+
+    <div class="two-col">
+      <div>
+        <div class="stakeholder-section">
+          <div class="stakeholder-label">🔵 Decision Makers (sign the contract)</div>
+          <div class="chip-row">
+            <span class="chip decision">Executive Director</span>
+            <span class="chip decision">VP / Director of Marketing</span>
+            <span class="chip decision">Regional Operations Lead</span>
+            <span class="chip decision">CFO / Finance Approver</span>
+          </div>
+        </div>
+        <div class="stakeholder-section">
+          <div class="stakeholder-label">🟢 Daily Users (use the product)</div>
+          <div class="chip-row">
+            <span class="chip user">Sales Counselors</span>
+            <span class="chip user">Marketing Coordinator</span>
+            <span class="chip user">Community Relations Team</span>
+            <span class="chip user">Front Desk / Admin Staff</span>
+          </div>
+        </div>
+        <div class="stakeholder-section">
+          <div class="stakeholder-label">🟡 Influencers & End Users</div>
+          <div class="chip-row">
+            <span class="chip influence">Adult Children of Prospects</span>
+            <span class="chip influence">Prospective Residents</span>
+            <span class="chip influence">IT / Systems Admin</span>
+            <span class="chip influence">CRM / PMS Vendor</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:0">
+        <div class="card-title">🧠 What Decision Makers Care About</div>
+        <ul class="pain-list">
+          <li><span class="pain-icon">💵</span><div><strong>Occupancy ROI.</strong> One extra move-in per month = $50K–$120K ARR. Every decision is filtered through "will this fill beds?"</div></li>
+          <li><span class="pain-icon">🔌</span><div><strong>Integration.</strong> "Does it work with our CRM?" is the first question. No one wants another siloed tool.</div></li>
+          <li><span class="pain-icon">⚙️</span><div><strong>Setup burden.</strong> Understaffed teams can't afford a 3-month implementation. They want fast deployment.</div></li>
+          <li><span class="pain-icon">🩺</span><div><strong>Tone sensitivity.</strong> Senior living conversations are emotional. AI that sounds robotic is a liability. Empathy is non-negotiable.</div></li>
+          <li><span class="pain-icon">📜</span><div><strong>Compliance.</strong> HIPAA adjacency, data privacy, resident communication policies all factor in.</div></li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <p class="section-title" style="font-size:16px; margin-bottom: 16px;">The Family Decision Journey — and Where Uniti Shows Up</p>
+
+    <div class="journey">
+      <div class="journey-step">
+        <div class="journey-dot">🔍</div>
+        <div class="journey-phase">Awareness</div>
+        <div class="journey-desc">Family researches online. Parent has a health event or mobility change. Searches begin.</div>
+        <div class="journey-uniti">→ Uniti: SEO landing pages, instant chat response</div>
+      </div>
+      <div class="journey-step">
+        <div class="journey-dot">💬</div>
+        <div class="journey-phase">First Contact</div>
+        <div class="journey-desc">Family submits web form, texts, or calls. Often at night or weekend.</div>
+        <div class="journey-uniti">→ Uniti: &lt;90 sec AI response, 24/7</div>
+      </div>
+      <div class="journey-step">
+        <div class="journey-dot">🏡</div>
+        <div class="journey-phase">Consideration</div>
+        <div class="journey-desc">Comparing 3–5 communities. Research takes weeks to months. Touchpoints multiply.</div>
+        <div class="journey-uniti">→ Uniti: Automated nurture, FAQ, availability updates</div>
+      </div>
+      <div class="journey-step">
+        <div class="journey-dot">📅</div>
+        <div class="journey-phase">Tour & Evaluate</div>
+        <div class="journey-desc">Book tours. Meet staff. Ask hard questions about care levels.</div>
+        <div class="journey-uniti">→ Uniti: Auto tour scheduling, pre-tour reminders</div>
+      </div>
+      <div class="journey-step">
+        <div class="journey-dot">✅</div>
+        <div class="journey-phase">Decision</div>
+        <div class="journey-desc">Family decides. Financial planner, siblings weigh in. Emotional process.</div>
+        <div class="journey-uniti">→ Uniti: Final follow-up sequences, warm handoff to counselor</div>
+      </div>
+      <div class="journey-step">
+        <div class="journey-dot">🏠</div>
+        <div class="journey-phase">Move-In & Beyond</div>
+        <div class="journey-desc">Resident onboards. Ongoing family communication, maintenance, billing.</div>
+        <div class="journey-uniti">→ Uniti: Support agent, issue resolution, resident comms</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="highlight-box">
+        <div class="hl-title">Before the Decision: How Uniti Wins the Deal</div>
+        <div class="hl-body">Speed matters most here. Families that get an instant, empathetic response at first contact are significantly more likely to stay engaged. Uniti handles the 24/7 availability gap, maintains touchpoints over the long research cycle, and ensures no lead goes cold due to staff turnover. The agent adapts tone to the sensitivity of the conversation — it doesn't sound like a chatbot.</div>
+      </div>
+      <div class="highlight-box green">
+        <div class="hl-title">After the Decision: How Uniti Keeps the Community Running</div>
+        <div class="hl-body">Post move-in, Uniti handles the operational load: maintenance requests, balance inquiries, guest questions, and family updates — all resolved without pulling a care staff member away from a resident. Escalations are warm, with full context. Staff focus on care. The AI handles communication volume.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ TAB 3: DECISION MAKING ═══════════════════════════════ -->
+  <div class="tab-panel" id="tab-competition">
+    <p class="section-title">Who Decides & How — The Senior Living Decision Map</p>
+    <p class="section-sub">4–6 stakeholders. 3 months to 2 years. Almost always triggered by crisis. Whoever responds first, wins.</p>
+
+    <!-- STAKEHOLDER MAP -->
+    <p style="font-size:15px;font-weight:700;color:var(--accent);margin-bottom:4px;">Know Your Audience</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:18px;">Before you can fill beds, you have to understand who's making the decision — and what it takes to earn their trust at every step.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;margin-bottom:28px;">
+
+      <!-- CARD 1 -->
+      <div class="scard scard-primary">
+        <div class="scard-header">
+          <div class="scard-icon">👧</div>
+          <div>
+            <div class="scard-name">The Adult Child</div>
+            <div class="scard-role">⭐ YOUR MOST IMPORTANT BUYER</div>
+          </div>
+        </div>
+        <div class="scard-stat-row">
+          <div class="scard-stat"><span class="scard-stat-val">90%</span><span class="scard-stat-lbl">of research done by this person</span></div>
+          <div class="scard-stat"><span class="scard-stat-val">10pm</span><span class="scard-stat-lbl">when they typically search</span></div>
+        </div>
+        <div class="scard-profile-label">WHO THEY ARE</div>
+        <div class="scard-body">45–60, juggling career and family. Researches obsessively — reviews, care levels, pricing — alone, at night. Guilt, grief, and urgency all at once.</div>
+        <div class="scard-challenge">
+          <span class="scard-challenge-label">⚠ YOUR CHALLENGE</span>
+          They contact 4–5 communities simultaneously. If you're not first to reply with a real answer, you're off the list before your counselor arrives in the morning.
+        </div>
+        <div class="scard-needs">
+          <div class="scard-need-label">✅ How Uniti helps you win them:</div>
+          <ul class="scard-bullets">
+            <li>Responds in &lt;90 seconds — at midnight, on Sunday, on holidays</li>
+            <li>Answers real questions upfront: availability, care levels, pricing</li>
+            <li>Books the tour while they're still on the page, before competitors reply</li>
+            <li>Signals responsiveness before they ever set foot in your door</li>
+          </ul>
+        </div>
+        <div class="scard-channels"><span class="sch">📱 SMS</span><span class="sch">📧 Email</span><span class="sch">💬 Web Chat</span><span class="sch">📞 Voice</span></div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="scard">
+        <div class="scard-header">
+          <div class="scard-icon">👴</div>
+          <div>
+            <div class="scard-name">The Future Resident</div>
+            <div class="scard-role">THE EMOTIONAL CENTRE OF THE DEAL</div>
+          </div>
+        </div>
+        <div class="scard-stat-row">
+          <div class="scard-stat"><span class="scard-stat-val">~70%</span><span class="scard-stat-lbl">resist the move initially</span></div>
+          <div class="scard-stat"><span class="scard-stat-val">#1</span><span class="scard-stat-lbl">fear: losing independence</span></div>
+        </div>
+        <div class="scard-profile-label">WHO THEY ARE</div>
+        <div class="scard-body">In independent living, often the lead decision-maker. In assisted/memory care, the family leads — but the senior's emotional buy-in still determines if the move sticks. This transition feels like loss, not gain.</div>
+        <div class="scard-challenge">
+          <span class="scard-challenge-label">⚠ YOUR CHALLENGE</span>
+          If they feel placed rather than welcomed, they'll resist — and a resistant resident shakes the family's confidence and delays the deal.
+        </div>
+        <div class="scard-needs">
+          <div class="scard-need-label">✅ How Uniti helps you win them:</div>
+          <ul class="scard-bullets">
+            <li>Warm, unhurried AI tone — no scripts, no pressure, no robotic energy</li>
+            <li>Answers questions about daily life, activities, dining, and community feel</li>
+            <li>Treats the senior as the decision-maker, not the subject of the conversation</li>
+          </ul>
+        </div>
+        <div class="scard-channels"><span class="sch">📞 Voice</span><span class="sch">📱 SMS</span></div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="scard">
+        <div class="scard-header">
+          <div class="scard-icon">👨‍👩‍👧</div>
+          <div>
+            <div class="scard-name">The Out-of-Town Sibling</div>
+            <div class="scard-role">THE HIDDEN VETO</div>
+          </div>
+        </div>
+        <div class="scard-stat-row">
+          <div class="scard-stat"><span class="scard-stat-val">Avg. 3</span><span class="scard-stat-lbl">family members involved</span></div>
+          <div class="scard-stat"><span class="scard-stat-val">Last min.</span><span class="scard-stat-lbl">when they typically show up</span></div>
+        </div>
+        <div class="scard-profile-label">WHO THEY ARE</div>
+        <div class="scard-body">Hasn't witnessed the slow decline. Flies in, forms instant opinions, raises financial objections, and questions the timeline. Needs to be brought up to speed fast — and asynchronously.</div>
+        <div class="scard-challenge">
+          <span class="scard-challenge-label">⚠ YOUR CHALLENGE</span>
+          You've already won the lead sibling. Don't lose the deal to someone who showed up in week five with a bad Google review and a spreadsheet.
+        </div>
+        <div class="scard-needs">
+          <div class="scard-need-label">✅ How Uniti helps you win them:</div>
+          <ul class="scard-bullets">
+            <li>Auto-sends shareable summary emails the lead sibling can forward</li>
+            <li>Delivers clear pricing and care level info — no ambiguity to argue about</li>
+            <li>Keeps the community responsive enough that there's nothing to criticise</li>
+          </ul>
+        </div>
+        <div class="scard-channels"><span class="sch">📧 Email</span><span class="sch">💬 Chat</span></div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="scard">
+        <div class="scard-header">
+          <div class="scard-icon">🏥</div>
+          <div>
+            <div class="scard-name">Hospital Discharge Planner</div>
+            <div class="scard-role">YOUR HIGHEST-VALUE REFERRAL SOURCE</div>
+          </div>
+        </div>
+        <div class="scard-stat-row">
+          <div class="scard-stat"><span class="scard-stat-val">72 hrs</span><span class="scard-stat-lbl">window to secure placement</span></div>
+          <div class="scard-stat"><span class="scard-stat-val">1st reply</span><span class="scard-stat-lbl">wins the placement, always</span></div>
+        </div>
+        <div class="scard-profile-label">WHO THEY ARE</div>
+        <div class="scard-body">Social workers who place patients before hospital discharge. They call 10–20 communities at once and stop calling the ones that don't pick up. One strong relationship here = a steady stream of high-urgency placements.</div>
+        <div class="scard-challenge">
+          <span class="scard-challenge-label">⚠ YOUR CHALLENGE</span>
+          Calls come in at 6am, 8pm, Friday afternoons. If your front desk is at lunch, you've lost the placement — and likely the relationship.
+        </div>
+        <div class="scard-needs">
+          <div class="scard-need-label">✅ How Uniti helps you win them:</div>
+          <ul class="scard-bullets">
+            <li>Answers every call instantly — no hold music, no voicemail, no callbacks</li>
+            <li>Confirms availability in real time, any hour of the day</li>
+            <li>Builds the reputation of a community that "always picks up"</li>
+          </ul>
+        </div>
+        <div class="scard-channels"><span class="sch">📞 Voice</span><span class="sch">📱 SMS</span><span class="sch">📧 Email</span></div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="scard">
+        <div class="scard-header">
+          <div class="scard-icon">👨‍⚕️</div>
+          <div>
+            <div class="scard-name">Primary Care Physician</div>
+            <div class="scard-role">THE VOICE THAT STARTS THE PROCESS</div>
+          </div>
+        </div>
+        <div class="scard-stat-row">
+          <div class="scard-stat"><span class="scard-stat-val">#1</span><span class="scard-stat-lbl">trusted source for families</span></div>
+          <div class="scard-stat"><span class="scard-stat-val">Long-term</span><span class="scard-stat-lbl">referral relationship value</span></div>
+        </div>
+        <div class="scard-profile-label">WHO THEY ARE</div>
+        <div class="scard-body">The person who says "it's time." Families trust their parent's doctor above any review site or brochure. Physicians don't pick the facility — but families start Googling immediately after that conversation.</div>
+        <div class="scard-challenge">
+          <span class="scard-challenge-label">⚠ YOUR CHALLENGE</span>
+          You can't market to them directly. You earn this through reputation — and reputation is built one fast, responsive interaction at a time.
+        </div>
+        <div class="scard-needs">
+          <div class="scard-need-label">✅ How Uniti helps you win them:</div>
+          <ul class="scard-bullets">
+            <li>A community that responds instantly to every referral looks good on the physician who sent them</li>
+            <li>Published case studies and outcomes data build credibility with clinical networks</li>
+            <li>Consistent responsiveness becomes reputation — and reputation becomes referrals</li>
+          </ul>
+        </div>
+        <div class="scard-channels"><span class="sch">🤝 Referral</span><span class="sch">📄 Content</span><span class="sch">🏆 Reputation</span></div>
+      </div>
+
+      <!-- CARD 6 -->
+      <div class="scard">
+        <div class="scard-header">
+          <div class="scard-icon">💼</div>
+          <div>
+            <div class="scard-name">Financial Advisor / Elder Law Attorney</div>
+            <div class="scard-role">THE LAST CHECKPOINT</div>
+          </div>
+        </div>
+        <div class="scard-stat-row">
+          <div class="scard-stat"><span class="scard-stat-val">$4K–10K</span><span class="scard-stat-lbl">per month, per resident</span></div>
+          <div class="scard-stat"><span class="scard-stat-val">Often</span><span class="scard-stat-lbl">the deal's final blocker</span></div>
+        </div>
+        <div class="scard-profile-label">WHO THEY ARE</div>
+        <div class="scard-body">Families rarely commit $4K–10K/month without a financial advisor's sign-off. These advisors are logical, not emotional — they assess sustainability, Medicaid eligibility, and contract terms. They can stall a deal by weeks.</div>
+        <div class="scard-challenge">
+          <span class="scard-challenge-label">⚠ YOUR CHALLENGE</span>
+          An emotionally ready family can sit in limbo for months over unclear pricing. Transparency here unlocks the deal. Ambiguity kills it.
+        </div>
+        <div class="scard-needs">
+          <div class="scard-need-label">✅ How Uniti helps you win them:</div>
+          <ul class="scard-bullets">
+            <li>Delivers clear cost breakdowns instantly — no "call us to discuss pricing"</li>
+            <li>Removes financial ambiguity early so advisors can greenlight faster</li>
+            <li>Reduces the back-and-forth that stalls deals in the final stretch</li>
+          </ul>
+        </div>
+        <div class="scard-channels"><span class="sch">📧 Email</span><span class="sch">📄 One-pager</span></div>
+      </div>
+
+    </div>
+
+    <hr class="divider" />
+
+    <!-- DECISION JOURNEY -->
+    <p style="font-size:15px;font-weight:700;color:var(--accent);margin-bottom:4px;">The Decision Journey</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:22px;">Avg. time to move-in: <strong style="color:var(--accent)">3 months–2 years.</strong> &nbsp;Avg. touchpoints to convert: <strong style="color:var(--accent)">25.</strong> &nbsp;Uniti is present at every stage.</p>
+
+    <div style="display:flex;flex-direction:column;gap:0;margin-bottom:28px;">
+
+      <div class="dstage">
+        <div class="dstage-left"><div class="dstage-num">01</div><div class="dstage-line"></div></div>
+        <div class="dstage-right">
+          <div class="dstage-head">
+            <span class="dstage-title">Trigger Event</span>
+            <span class="dstage-who">👧 Adult child &nbsp;|&nbsp; 👴 Senior &nbsp;|&nbsp; 🏥 Hospital staff</span>
+          </div>
+          <div class="dstage-body">A fall. A hospitalisation. A diagnosis. A caregiver burning out. The search begins in crisis — raw, emotional, urgent.</div>
+          <div class="dstage-consideration"><strong>Key consideration:</strong> Families aren't ready for a sales pitch. They need information and they need it now.</div>
+          <div class="dstage-uniti">🤖 <strong>Uniti:</strong> Be the first to respond to that midnight search — empathetic, immediate, non-pushy.</div>
+        </div>
+      </div>
+
+      <div class="dstage">
+        <div class="dstage-left"><div class="dstage-num">02</div><div class="dstage-line"></div></div>
+        <div class="dstage-right">
+          <div class="dstage-head">
+            <span class="dstage-title">Awareness & Research</span>
+            <span class="dstage-who">👧 Adult child &nbsp;|&nbsp; 👴 Senior (sometimes)</span>
+          </div>
+          <div class="dstage-body">Google, A Place for Mom, Reddit, reviews. Obsessive, solo, nocturnal. A shortlist of 3–5 communities gets built. Strong websites and fast chat responses win inclusion.</div>
+          <div class="dstage-consideration"><strong>Key consideration:</strong> Cost, location, care level, and reputation are evaluated simultaneously.</div>
+          <div class="dstage-uniti">🤖 <strong>Uniti:</strong> Answer the chat widget at 11pm. Not "we'll call you back tomorrow" — real answers, right now.</div>
+        </div>
+      </div>
+
+      <div class="dstage">
+        <div class="dstage-left"><div class="dstage-num">03</div><div class="dstage-line"></div></div>
+        <div class="dstage-right">
+          <div class="dstage-head">
+            <span class="dstage-title">First Inquiry & Shortlisting</span>
+            <span class="dstage-who">👧 Adult child &nbsp;|&nbsp; 👨‍👩‍👧 Siblings (emerging)</span>
+          </div>
+          <div class="dstage-body">Family contacts 3–5 communities at once. Responding within 5 minutes increases conversion 9×. First to respond earns disproportionate trust — even if the care is identical.</div>
+          <div class="dstage-consideration"><strong>Key consideration:</strong> If the answer takes 24 hours, the family has mentally moved on.</div>
+          <div class="dstage-uniti">🤖 <strong>Uniti:</strong> &lt;90 sec response on every channel. Answers availability, care levels, cost. Books the tour before competitors reply.</div>
+        </div>
+      </div>
+
+      <div class="dstage">
+        <div class="dstage-left"><div class="dstage-num">04</div><div class="dstage-line"></div></div>
+        <div class="dstage-right">
+          <div class="dstage-head">
+            <span class="dstage-title">Tours & Site Visits</span>
+            <span class="dstage-who">👧 Adult child &nbsp;|&nbsp; 👴 Senior &nbsp;|&nbsp; 👨‍👩‍👧 Siblings (fly in)</span>
+          </div>
+          <div class="dstage-body">2–3 communities toured. The senior's gut reaction is decisive. Tours get rescheduled, no-showed, or ghosted without proper follow-up.</div>
+          <div class="dstage-consideration"><strong>Key consideration:</strong> Does it feel like a home or a hospital? Staff warmth matters as much as amenities.</div>
+          <div class="dstage-uniti">🤖 <strong>Uniti:</strong> Auto-scheduling synced to counselor calendars. SMS reminders. Post-tour follow-up within the hour.</div>
+        </div>
+      </div>
+
+      <div class="dstage">
+        <div class="dstage-left"><div class="dstage-num">05</div><div class="dstage-line"></div></div>
+        <div class="dstage-right">
+          <div class="dstage-head">
+            <span class="dstage-title">Family Deliberation</span>
+            <span class="dstage-who">👧 Lead child &nbsp;|&nbsp; 👨‍👩‍👧 All siblings &nbsp;|&nbsp; 💼 Advisors &nbsp;|&nbsp; 👨‍⚕️ Physician</span>
+          </div>
+          <div class="dstage-body">The lead sibling gets buy-in from everyone. Long-distance siblings push back. Finances get scrutinised. The senior resists. This phase stalls for weeks — communities that stay present win. Most go quiet.</div>
+          <div class="dstage-consideration"><strong>Key consideration:</strong> Consensus is fragile. One unanswered call can reopen the whole decision.</div>
+          <div class="dstage-uniti">🤖 <strong>Uniti:</strong> Warm, timed nurture sequences. Win-back campaigns for families who've gone silent. Stay top of mind without pressure.</div>
+        </div>
+      </div>
+
+      <div class="dstage">
+        <div class="dstage-left"><div class="dstage-num">06</div><div class="dstage-line"></div></div>
+        <div class="dstage-right">
+          <div class="dstage-head">
+            <span class="dstage-title">Decision & Move-In</span>
+            <span class="dstage-who">👧 Adult child &nbsp;|&nbsp; 👴 Senior &nbsp;|&nbsp; Sales counselor</span>
+          </div>
+          <div class="dstage-body">Usually triggered by urgency or emotional readiness. Moves fast once committed. Logistics — downsizing, care assessments, paperwork — all need smooth coordination.</div>
+          <div class="dstage-consideration"><strong>Key consideration:</strong> Friction kills late-stage deals. Slow responses cause last-minute cold feet.</div>
+          <div class="dstage-uniti">🤖 <strong>Uniti:</strong> Full conversation history handed off to counselor. Move-in checklist and comms delivered automatically via SMS.</div>
+        </div>
+      </div>
+
+      <div class="dstage" style="border-bottom:none;">
+        <div class="dstage-left"><div class="dstage-num" style="background:var(--green);border-color:var(--green);color:#fff;">✓</div></div>
+        <div class="dstage-right">
+          <div class="dstage-head">
+            <span class="dstage-title">Post Move-In: Ongoing</span>
+            <span class="dstage-who">👴 Resident &nbsp;|&nbsp; 👧 Family &nbsp;|&nbsp; 🧑‍⚕️ Caregivers</span>
+          </div>
+          <div class="dstage-body">Worth $50K–$120K/year per resident. Families check in constantly. Residents have maintenance needs, billing questions, activity requests. Staff can't be the 24/7 contact for all of it.</div>
+          <div class="dstage-consideration"><strong>Key consideration:</strong> Responsiveness post move-in determines reviews, referrals, and retention.</div>
+          <div class="dstage-uniti">🤖 <strong>Uniti:</strong> Support agent handles volume 24/7. Warm escalation for anything sensitive. Caregivers stay focused on care — not admin.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <hr class="divider" />
+
+    <!-- SUMMARY TABLE -->
+    <p style="font-size:15px;font-weight:700;color:var(--accent);margin-bottom:16px;">At a Glance: Without Uniti vs. With Uniti</p>
+    <table class="comp-table" style="border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <thead>
+        <tr>
+          <th>Stage</th>
+          <th>Without Uniti</th>
+          <th>With Uniti</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Trigger</strong></td><td style="color:var(--red)">Voicemail. Form submitted. 24hr wait.</td><td style="color:var(--green)">&lt;90 sec response, any hour</td></tr>
+        <tr><td><strong>Research</strong></td><td style="color:var(--red)">Chat offline at night. FAQs unanswered.</td><td style="color:var(--green)">Always-on answers — care levels, cost, availability</td></tr>
+        <tr><td><strong>Shortlisting</strong></td><td style="color:var(--red)">Slowest of 5 to respond. Dropped.</td><td style="color:var(--green)">First to respond. Tour booked before others reply.</td></tr>
+        <tr><td><strong>Tours</strong></td><td style="color:var(--red)">Email back-and-forth. Reminder missed. No-show.</td><td style="color:var(--green)">Auto-scheduled, confirmed, SMS-reminded</td></tr>
+        <tr><td><strong>Deliberation</strong></td><td style="color:var(--red)">Community goes silent. Competitor wins.</td><td style="color:var(--green)">Warm nurture sequences. Win-back for cold leads.</td></tr>
+        <tr><td><strong>Move-In</strong></td><td style="color:var(--red)">Slow logistics. Cold feet. Deal falls through.</td><td style="color:var(--green)">Full context handoff. Automated move-in comms.</td></tr>
+        <tr><td><strong>Post Move-In</strong></td><td style="color:var(--red)">Staff overwhelmed. Reviews drop. Referrals dry up.</td><td style="color:var(--green)">24/7 support agent. Staff focused on care.</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <!-- ═══════════════════════════════ TAB 4: ASSETS ═══════════════════════════════ -->
+  <div class="tab-panel" id="tab-assets">
+    <p class="section-title">Sample Marketing Assets · Senior Living</p>
+    <p class="section-sub">Two formats: a LinkedIn launch post for the senior living vertical, and a mock customer case study. Both show what great Uniti content looks like in the wild.</p>
+
+    <div style="margin-bottom: 12px;">
+      <span class="tag-pill">Format 1</span>
+      <span style="font-size:13px; color:var(--muted);">LinkedIn Post — Vertical Launch Announcement</span>
+    </div>
+
+    <div class="linkedin-wrapper">
+      <div class="li-card">
+        <div class="li-header">
+          <div class="li-avatar">U</div>
+          <div>
+            <div class="li-name">Uniti AI</div>
+            <div class="li-title">AI agents for real estate operators · 2,000 followers</div>
+            <div class="li-time">2d · 🌐</div>
+          </div>
+        </div>
+        <div class="li-body">11:47pm. A family member called because their parent had just fallen.
+
+Scared. Overwhelmed. Needed to know about availability — immediately.
+
+The Uniti agent responded in 38 seconds. Answered their questions. Booked a tour for the next morning.
+
+By 9am, the counselor walked in to a family that was already decided.
+
+This is the moment senior living is won or lost. Not during a sales call. During a health scare. A hospital discharge. A late-night panic.
+
+What Uniti's senior living customers see:
+→ Response time: 6+ hours → under 90 seconds
+→ Tour bookings: +35% in 90 days
+→ Counselors freed from intake calls: back to closing
+
+The AI handles the volume. Your team handles the people.
+
+What does that look like for your community? Link in comments. 👇
+
+#SeniorLiving #AssistedLiving #AIAgents #SeniorCare</div>
+        <div class="li-image">
+          <div class="li-img-label">Uniti AI · Senior Living</div>
+          <div class="li-img-stat">38 sec</div>
+          <div class="li-img-desc">Average lead response time after Uniti deployment</div>
+          <div class="li-img-quote">"Our counselors are finally spending time with people who are actually ready to decide — not chasing down cold leads from last month."<br><br>— Executive Director, Assisted Living Community, Texas</div>
+          <div class="li-img-footer">getuniti.com/senior-living</div>
+        </div>
+        <div class="li-footer">
+          <span class="li-action">👍 Like</span>
+          <span class="li-action">💬 Comment</span>
+          <span class="li-action">↗️ Repost</span>
+          <span class="li-action">📤 Send</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <div style="margin-bottom: 12px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+      <span class="tag-pill">Format 2</span>
+      <span style="font-size:13px; color:var(--muted);">Customer Case Study — Website / Sales Enablement Format</span>
+      <span style="font-size:11.5px; background:rgba(201,125,16,0.1); color:var(--amber); border:1px solid rgba(201,125,16,0.3); padding:2px 10px; border-radius:4px; font-weight:600;">⚠ Fictional mock — for format reference only</span>
+    </div>
+
+    <div class="case-card">
+      <div class="case-header">
+        <div class="case-tag">Case Study · Senior Living</div>
+        <div class="case-headline">Sunrise Gardens Cut Lead Response Time by 94% — and Filled 11 Units in 90 Days</div>
+        <div class="case-sub">How a 3-community assisted living operator in Texas used Uniti AI to turn their website into a 24/7 sales engine</div>
+      </div>
+      <div class="case-body">
+        <div class="case-metrics">
+          <div class="case-metric">
+            <div class="case-metric-val">94%</div>
+            <div class="case-metric-label">Faster lead response time</div>
+          </div>
+          <div class="case-metric">
+            <div class="case-metric-val">11</div>
+            <div class="case-metric-label">New move-ins in first 90 days</div>
+          </div>
+          <div class="case-metric">
+            <div class="case-metric-val">60%</div>
+            <div class="case-metric-label">Less staff time on repetitive inquiries</div>
+          </div>
+        </div>
+
+        <div class="case-text"><strong style="color:var(--accent)">The Challenge.</strong> Sunrise Gardens was running three assisted living communities with two sales counselors shared across all locations. Average lead response time was 7 hours. Families who called after 5pm or on weekends got voicemail. The team was losing leads to competitors who picked up faster — not because their care was better, but because they responded first.</div>
+
+        <div class="case-text"><strong style="color:var(--accent)">What They Did.</strong> Sunrise integrated Uniti AI across all three communities in under a week. The agent was live on their website chat, SMS line, and email intake — answering inquiries about availability, care levels, pricing, and touring within 90 seconds, around the clock. Complex questions and tour requests were routed to counselors with full conversation context already logged.</div>
+
+        <div class="case-quote">
+          <div class="case-quote-text">"We were losing families at the first touchpoint — not because of our care, but because we couldn't get back to them fast enough. Uniti fixed that. Now when a family reaches out at midnight, they get answers. By the time my counselor calls them the next morning, they already trust us."</div>
+          <div class="case-quote-attr">— Sarah M., Executive Director, Sunrise Gardens</div>
+        </div>
+
+        <div class="case-text"><strong style="color:var(--accent)">The Results.</strong> In the first 90 days, Sunrise booked 35% more tours, converted 11 additional move-ins, and freed their counselors from spending mornings returning inquiry voicemails. Staff now spend the majority of their time on tours and close conversations — the work that actually requires a human.</div>
+
+        <div style="margin-top: 18px; display: flex; gap: 10px; flex-wrap: wrap;">
+          <span class="tag-pill">Assisted Living</span>
+          <span class="tag-pill">Texas</span>
+          <span class="tag-pill">3 Communities</span>
+          <span class="tag-pill">SMS + Email + Chat</span>
+          <span class="tag-pill">90-Day Results</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 8px; background: rgba(14,31,61,0.04); border-color: rgba(14,31,61,0.15);">
+      <div class="hl-title" style="color: var(--accent);">💡 Why These Assets Work (the formula)</div>
+      <div class="hl-body">Both assets follow the same principle Anthropic uses for Claude launches: <strong style="color:var(--accent)">specificity over generality, proof over claims, and a human story at the center.</strong> The LinkedIn post leads with a scene — 11:47pm, a scared family — before touching a single metric. The case study anchors every claim to a number. Neither says "leverage AI to transform operations." That's the difference between content that lands and content that gets scrolled past.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
